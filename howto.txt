@@ -1,0 +1,1 @@
+scp -r co2_alert_bot/main.py root@134.209.XXX.XXX:/home/projects/check_co2/
