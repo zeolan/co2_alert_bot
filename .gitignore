@@ -1,3 +1,4 @@
 .env
 .venv/
+image.png
 __pycache__/
