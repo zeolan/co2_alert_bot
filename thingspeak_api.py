@@ -1,9 +1,11 @@
 import logging
 import requests
+from datetime import datetime
 from numbers import Number
 
 logger = logging.getLogger("ts_api")
 
+TIMEZONE_HOURS_OFFSET = 2
 TS_CHANNEL_ID = 386789
 TS_READ_FIELD_URL = (
     "https://api.thingspeak.com/channels/{channel_id}/fields/{field_id}.json?results={results_number}"
@@ -33,8 +35,12 @@ async def get_latest_value(field_id: Number = 1):
     json_response = await make_thingspeak_request(url)
     try:
         field_feeds = json_response.get("feeds", [])
-        latest_value = field_feeds[0].get(f"field{field_id}")
-        return latest_value
+        value = field_feeds[0].get(f"field{field_id}")
+        timestamp = field_feeds[0].get("created_at")
+        time = datetime.fromisoformat(timestamp)
+        time = time.replace(hour=time.hour + TIMEZONE_HOURS_OFFSET)
+        time = time.time().isoformat()
+        return value, time
     except Exception as e:
         raise Exception(f"ThingSpeakAPI parse error: {str(e)}")
 
