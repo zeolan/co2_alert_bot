@@ -2,3 +2,4 @@
 .venv/
 image.png
 __pycache__/
+logs/

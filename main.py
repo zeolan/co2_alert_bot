@@ -11,6 +11,7 @@ from aiogram.enums import ParseMode
 from dotenv import load_dotenv
 
 from tgbot_commands import router
+from app_logging import logger
 
 
 load_dotenv()
@@ -33,5 +34,8 @@ async def main():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except Exception as e:
+        logger.info(f"Exception in main: {str(e)}")
 

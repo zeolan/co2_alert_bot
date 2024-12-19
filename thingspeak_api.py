@@ -4,7 +4,7 @@ from numbers import Number
 
 from utils import get_local_datetime
 
-logger = logging.getLogger("ts_api")
+logger = logging.getLogger("thingspeak.api")
 
 TS_CHANNEL_ID = 386789
 TS_READ_FIELD_URL = (
