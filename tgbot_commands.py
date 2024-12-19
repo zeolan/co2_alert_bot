@@ -7,7 +7,8 @@ from aiogram.types import (
 )
 
 from thingspeak_api import get_latest_value, get_n_latest_values
-from create_img import create_and_save_img
+from create_img import create_and_save_img, get_full_file_name
+from utils import remove_file
 
 
 router = Router()
@@ -31,7 +32,9 @@ async def get_file_handler(message: Message) -> None:
     """
 
     logging.info("Getting latest values as an image")
-    latest_values = await get_n_latest_values(field_id=4, results_number=200)
-    create_and_save_img(latest_values)
-    file = FSInputFile("image.png")
+    latest_values, interval = await get_n_latest_values(field_id=4)
+    create_and_save_img(latest_values, interval)
+    file_name = f"{interval}.png"
+    file = FSInputFile(file_name)
     await message.answer_document(document=file)
+    remove_file(get_full_file_name(file_name))

@@ -3,13 +3,13 @@ import os
 import matplotlib.pyplot as plt
 
 
-def get_full_file_name(file_name="image"):
+def get_full_file_name(file_name: str) -> str:
     return os.path.join(os.path.abspath("."), file_name)
 
 
-def create_and_save_img(data):
+def create_and_save_img(data, file_name: str):
     fig, ax = plt.subplots()
     ax.plot(data)
-    fig.savefig(get_full_file_name())
+    fig.savefig(get_full_file_name(file_name))
     # plt.show()
     plt.close(fig)
