@@ -24,9 +24,9 @@ fh.setLevel(logging.INFO)
 
 # create formatter and add it to the handlers
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                    datefmt="%m/%d/%Y %I:%M:%S %p %Z")
+                    datefmt="%m/%d/%Y %H:%M:%S %Z")
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                              datefmt="%m/%d/%Y %I:%M:%S %p %Z")
+                              datefmt="%m/%d/%Y %H:%M:%S %Z")
 fh.setFormatter(formatter)
 
 # add the handlers to the logger
