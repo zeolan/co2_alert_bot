@@ -56,9 +56,9 @@ async def get_n_latest_values(field_id: Number = 1, results_number: Number = 300
         field_feeds = json_response.get("feeds", [])
         latest_values = map(lambda o: int(o[f"field{field_id}"]), field_feeds)
         created_at_from, *rest, created_at_to = [o["created_at"] for o in field_feeds]
-        created_at_from = get_local_datetime(created_at_from).time().strftime("%H:%M")
-        created_at_to = get_local_datetime(created_at_to).time().strftime("%H:%M")
-        interval = f"{created_at_from} - {created_at_to}"
+        created_at_from = get_local_datetime(created_at_from).time().strftime("%H:%M").replace(":", "_")
+        created_at_to = get_local_datetime(created_at_to).time().strftime("%H:%M").replace(":", "_")
+        interval = f"{created_at_from}-{created_at_to}"
         return list(latest_values), interval
     except Exception as e:
         raise Exception(f"ThingSpeakAPI parse error: {str(e)}")
