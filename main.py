@@ -21,8 +21,6 @@ TOKEN = getenv("BOT_TOKEN")
 CHECK_INTERVAL = 60
 HEALTH_CHECK_INTERVAL = 20 * 60
 
-co2_level_alarm = False
-
 
 async def main():
     # Initialize Bot instance with default bot properties
@@ -40,7 +38,7 @@ async def main():
         try:
             await dp.start_polling(bot)
         except Exception as e:
-            logger.error(f"Exception in polling: {str(e)}")
+            logger.error("Exception in polling: %s", str(e))
             await dp.stop_polling()
 
 
@@ -61,4 +59,4 @@ if __name__ == "__main__":
         health_check_task.cancel()
         bot_task.cancel()
     except Exception as e:
-        logger.error(f"Exception in main: {str(e)}")
+        logger.error("Exception in main: %s", str(e))

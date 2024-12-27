@@ -1,6 +1,7 @@
 import logging
-import requests
 from numbers import Number
+
+import requests
 
 from utils import get_local_datetime
 
@@ -16,15 +17,15 @@ TS_READ_FIELD_URL = (
 async def make_thingspeak_request(url):
     logger.info("Making ThingSpeak request")
     logger.info(url)
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     if response.status_code < 300:
         json_response = response.json()
         if not json_response:
             raise Exception("ThingSpeakAPI response couldn't be parsed")
         return json_response
-    else:
-        resp = response.json()
-        raise Exception(f"ThingSpeakAPI error: {resp.get('status')} - {resp.get('error')}")  # noqa: E501
+
+    resp = response.json()
+    raise Exception(f"ThingSpeakAPI error: {resp.get('status')} - {resp.get('error')}")  # noqa: E501
 
 
 async def get_latest_value(field_id: Number = 1):

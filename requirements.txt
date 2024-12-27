@@ -4,3 +4,4 @@ python-dotenv
 requests
 matplotlib
 flake8
+pylint
