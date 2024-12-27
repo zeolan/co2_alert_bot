@@ -17,7 +17,6 @@ from app_logging import logger
 
 load_dotenv()
 
-
 TOKEN = getenv("BOT_TOKEN")
 CHECK_INTERVAL = 60
 
@@ -33,31 +32,29 @@ async def main():
     dp.include_router(router)
 
     # Start event dispatching
-    try:
-        await dp.start_polling(bot)
-    except Exception as e:
-        logger.error(f"Exception in polling: {str(e)}")
-        await dp.stop_polling()
+    while True:
+        try:
+            await dp.start_polling(bot)
+        except Exception as e:
+            logger.error(f"Exception in polling: {str(e)}")
+            await dp.stop_polling()
 
-# async def poll_co2():
-#     co2_level_alarm = False
-#     try:
-#         logger.info("Getting latest value for CO2 (field4)")
-#         latest_co2_value, time = await get_latest_value(field_id=4)
-#         if int(latest_co2_value) >= 1300 and not co2_level_alarm:
-#             await tg_bot_send_message(f"ALARM -> {latest_co2_value}")
-#             co2_level_alarm = True
-#         elif int(latest_co2_value) < 1300 and co2_level_alarm:
-#             await tg_bot_send_message(f"OK -> {latest_co2_value}")
-#             co2_level_alarm = False
-#         #send_tg_bot_message(latestCO2_value)
-#     except Exception as e:
-#         await tg_bot_send_message(f"Exception -> {str(e)}")
+
+async def health_check():
+    while True:
+        logger.info(f"Health Check")
+        await asyncio.sleep(20*60)
 
 
 if __name__ == "__main__":
-    # logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     try:
-        asyncio.run(main())
+        loop = asyncio.get_event_loop()
+        health_check_task = loop.create_task(health_check())
+        bot_task = loop.create_task(main())
+        loop.run_until_complete(health_check_task)
+        loop.run_until_complete(bot_task)
+    except (asyncio.CancelledError, KeyboardInterrupt):
+        health_check_task.cancel()
+        bot_task.cancel()
     except Exception as e:
         logger.error(f"Exception in main: {str(e)}")
