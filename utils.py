@@ -10,6 +10,7 @@ TIMEZONE_HOURS_OFFSET = 2
 def get_local_datetime(dt):
     return datetime.fromisoformat(dt) + timedelta(hours=TIMEZONE_HOURS_OFFSET)
 
+
 def remove_file(file_name: str) -> None:
     try:
         os.remove(file_name)

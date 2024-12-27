@@ -19,13 +19,17 @@ load_dotenv()
 
 TOKEN = getenv("BOT_TOKEN")
 CHECK_INTERVAL = 60
+HEALTH_CHECK_INTERVAL = 20 * 60
 
 co2_level_alarm = False
 
 
 async def main():
-    # Initialize Bot instance with default bot properties which will be passed to all API calls
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    # Initialize Bot instance with default bot properties
+    # which will be passed to all API calls
+    bot = Bot(token=TOKEN,
+              default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+              )
 
     dp = Dispatcher()
 
@@ -42,8 +46,8 @@ async def main():
 
 async def health_check():
     while True:
-        logger.info(f"Health Check")
-        await asyncio.sleep(20*60)
+        logger.info("Health Check")
+        await asyncio.sleep(HEALTH_CHECK_INTERVAL)
 
 
 if __name__ == "__main__":

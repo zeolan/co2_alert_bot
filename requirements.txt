@@ -3,3 +3,4 @@ plotly
 python-dotenv
 requests
 matplotlib
+flake8

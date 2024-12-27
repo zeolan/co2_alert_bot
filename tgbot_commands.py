@@ -23,7 +23,9 @@ async def get_c02_handler(message: Message) -> None:
 
     logger.info("Getting latest value for CO2 (field4)")
     latest_co2_value, time = await get_latest_value(field_id=4)
-    await message.answer(f"Latest CO2 -> <b>{latest_co2_value}</b> <pre>  at {time}</pre>")
+    await message.answer(
+        f"Latest CO2 -> <b>{latest_co2_value}</b> <pre>  at {time}</pre>"
+    )
 
 
 @router.message(F.text.startswith("/f"))
@@ -38,7 +40,11 @@ async def get_file_handler(message: Message) -> None:
     file_name = f"{interval}.png"
     file = FSInputFile(file_name)
     await message.answer_document(document=file)
-    url = "https://thingspeak.mathworks.com/channels/386789/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=300&type=line"
+    url = (
+        "https://thingspeak.mathworks.com/channels/386789/charts/4?"
+        "bgcolor=%23ffffff&color=%23d62020&"
+        "dynamic=true&results=300&type=line"
+    )
     # entities = [MessageEntity(type="underline", offset=0, length=6)]
     await message.answer(text=f"<a href=\"{url}\">View in browser</a>")
     remove_file(get_full_file_name(file_name))
