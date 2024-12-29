@@ -14,6 +14,11 @@ TS_READ_FIELD_URL = (
 )
 
 
+class ThingSpeakAPIError(Exception):
+    def __init__(self, message):
+        self.message = "ThingSpeakAPIError: " + message
+
+
 async def make_thingspeak_request(url):
     logger.info("Making ThingSpeak request")
     logger.info(url)
@@ -21,11 +26,11 @@ async def make_thingspeak_request(url):
     if response.status_code < 300:
         json_response = response.json()
         if not json_response:
-            raise Exception("ThingSpeakAPI response couldn't be parsed")
+            raise ThingSpeakAPIError("response couldn't be parsed")
         return json_response
 
     resp = response.json()
-    raise Exception(f"ThingSpeakAPI error: {resp.get('status')} - {resp.get('error')}")  # noqa: E501
+    raise ThingSpeakAPIError(f"{resp.get('status')} - {resp.get('error')}")  # noqa: E501
 
 
 async def get_latest_value(field_id: Number = 1):
@@ -44,7 +49,7 @@ async def get_latest_value(field_id: Number = 1):
         time = dt.time().isoformat()
         return value, time
     except Exception as e:
-        raise Exception(f"ThingSpeakAPI parse error: {str(e)}")
+        raise ThingSpeakAPIError(f"response parse error: {str(e)}") from e
 
 
 async def get_n_latest_values(field_id: Number = 1, number: Number = 300):
@@ -63,4 +68,4 @@ async def get_n_latest_values(field_id: Number = 1, number: Number = 300):
         interval = f"{created_at_from}-{created_at_to}"
         return list(latest_values), interval
     except Exception as e:
-        raise Exception(f"ThingSpeakAPI parse error: {str(e)}")
+        raise ThingSpeakAPIError(f"response parse error: {str(e)}") from e

@@ -5,3 +5,4 @@ requests
 matplotlib
 flake8
 pylint
+pytest

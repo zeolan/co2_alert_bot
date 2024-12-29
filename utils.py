@@ -16,6 +16,7 @@ def remove_file(file_name: str) -> None:
         os.remove(file_name)
     except FileNotFoundError:
         loger.warning("Trying to remove not existing file: %s", file_name)
+        raise
 
 
 def get_full_file_name(file_name: str) -> str:

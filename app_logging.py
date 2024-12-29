@@ -21,8 +21,8 @@ logger.setLevel(logging.INFO)
 # fh = logging.FileHandler('app.log')
 fh = logging.handlers.RotatingFileHandler(
         os.path.join(os.path.abspath(LOG_DIR), LOG_FILENAME),
-        maxBytes=1024*10,
-        backupCount=2)
+        maxBytes=1024*20,
+        backupCount=3)
 
 fh.setLevel(logging.INFO)
 
