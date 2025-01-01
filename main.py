@@ -27,6 +27,7 @@ TG_CHAT_ID = 1175693746
 
 co2_level_alarm = False
 
+
 async def main():
     # Initialize Bot instance with default bot properties
     # which will be passed to all API calls
@@ -56,13 +57,13 @@ async def co2_level_check():
         if latest_co2_value >= CO2_MAX_LEVEL and not co2_level_alarm:
             co2_level_alarm = True
             await send_message(bot=TOKEN,
-                         chat_id=TG_CHAT_ID,
-                         msg=f"ALARM -> {latest_co2_value}")
+                               chat_id=TG_CHAT_ID,
+                               msg=f"ALARM -> {latest_co2_value}")
         elif latest_co2_value < CO2_MAX_LEVEL and co2_level_alarm:
             co2_level_alarm = False
             await send_message(bot=TOKEN,
-                         chat_id=TG_CHAT_ID,
-                         msg=f"OK -> {latest_co2_value}")
+                               chat_id=TG_CHAT_ID,
+                               msg=f"OK -> {latest_co2_value}")
         await asyncio.sleep(CO2_CHECK_INTERVAL)
 
 
