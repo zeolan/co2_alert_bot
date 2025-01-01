@@ -7,7 +7,7 @@ from requests.exceptions import Timeout
 logger = logging.getLogger("telegram.api")
 
 TG_SEND_MESSAGE_URL = (
-    "https://api.telegram.org/{bot}/sendMessage?"
+    "https://api.telegram.org/bot{bot}/sendMessage?"
     "&chat_id={chat_id}&text={msg}"
 )
 
