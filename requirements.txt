@@ -6,3 +6,5 @@ matplotlib
 flake8
 pylint
 pytest
+pytest-cov
+pytest-asyncio

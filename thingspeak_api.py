@@ -20,8 +20,8 @@ class ThingSpeakAPIError(Exception):
 
 
 async def make_thingspeak_request(url):
-    logger.info("Making ThingSpeak request")
-    logger.info(url)
+    logger.debug("Making ThingSpeak request")
+    logger.debug(url)
     response = requests.get(url, timeout=10)
     if response.status_code < 300:
         json_response = response.json()

@@ -4,3 +4,4 @@ image.png
 __pycache__/
 logs/
 *.log
+.coverage

@@ -7,7 +7,7 @@ loger = logging.getLogger()
 TIMEZONE_HOURS_OFFSET = 2
 
 
-def get_local_datetime(dt):
+def get_local_datetime(dt) -> datetime:
     return datetime.fromisoformat(dt) + timedelta(hours=TIMEZONE_HOURS_OFFSET)
 
 
