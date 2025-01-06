@@ -16,7 +16,7 @@ FAKE_DATA = {
                 "created_at": datetime.datetime.now().isoformat()
             },
             {
-                "field1": "500",
+                "field1": "600",
                 "created_at": datetime.datetime.now().isoformat()
             }
         ]
@@ -28,7 +28,7 @@ FAKE_WRONG_DATA = {
                 "created_at": False
             },
             {
-                "field1": "500",
+                "field1": "600",
                 "created_at": False
             }
         ]
@@ -96,5 +96,4 @@ async def test_get_n_latest_values_1(mock_obj):
 async def test_get_n_latest_values_2(mock_obj):
     mock_obj.return_value = FAKE_DATA
     values, _ = await get_n_latest_values(1)
-    print(values)
     assert values == [int(value["field1"]) for value in FAKE_DATA["feeds"]]
