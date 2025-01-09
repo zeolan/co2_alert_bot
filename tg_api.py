@@ -23,9 +23,9 @@ async def make_tg_request(url):
     try:
         resp = requests.get(url, timeout=10)
         if resp.status_code >= 300:
-            raise TelegramAPIError(f"status {resp.status_code}")
+            raise TelegramAPIError(f"response status {resp.status_code}")
     except Timeout as e:
-        raise TelegramAPIError("TelegramAPI timeout error") from e
+        raise TelegramAPIError("request timeout") from e
     # resp = response.json()
     # raise Exception(f"TelegramAPI error: {resp.get('status')} - {resp.get('error')}")  # noqa: E501
 
