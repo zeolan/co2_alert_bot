@@ -8,8 +8,9 @@ do
         echo "Bot isn't running, restart it"
         echo `date` >> co2_bot.log
         sh ./run.sh
+        echo $? >> co2_bot.log
     else
         echo "Bot is running, OK" >/dev/null
     fi
-    sleep 1m
+    sleep 3m
 done

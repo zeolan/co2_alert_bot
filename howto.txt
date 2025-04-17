@@ -2,3 +2,5 @@ scp -r co2_alert_bot/main.py root@134.209.XXX.XXX:/home/projects/check_co2/
 
 pylint *.py
 flake8 .
+
+dos2unix <filename> - to fix windows filename
