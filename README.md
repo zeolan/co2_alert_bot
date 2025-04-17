@@ -28,3 +28,13 @@ export it
 ```
 . run.sh
 ```
+
+## 5. Run app on the prod server
+
+```
+. check_bot_runing.sh
+```
+
+This will check if script is already running, and will start it if script isn't running.  
+Every time app restarts, appropriate message will be written in **co2_bot.log**.  
+Application logs will be written on the **logs/app.log**.
